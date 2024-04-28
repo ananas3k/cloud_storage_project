@@ -1,0 +1,70 @@
+<style>
+div.main, div.add { display: inline;}
+
+a.bttn {
+  color: #fff;
+  text-decoration: none;
+  user-select: none;
+  background: rgb(212,75,56);
+  padding: .7em 1.5em;
+  outline: none;
+}
+a.bttn:hover { background: rgb(232,95,76); }
+a.bttn:active { background: rgb(152,15,0); }
+</style>
+{% extends "base.html" %}
+
+
+{% block content %}
+
+ <head>
+  <meta charset="utf-8">
+  <title>Отправка файла на сервер</title>
+ </head>
+ <body>
+    <p0> {{files['name']}} </p0>
+ {% if files['back']%}
+        <a href ="javascript:history.back()" >
+            <div class="back_button" >
+                <p> назад </p>
+            </div>
+        </a>
+ {% endif %}
+
+  {% for item in files['data'] %}
+
+    <div id="container">
+        <a href ="/{{item['link']}}">
+            <div class="main" >
+                <p> {{item['name']}} </p>
+            </div>
+        </a>
+        <a href ="/{{item['del_link']}}" class="bttn">
+            удалить
+        </a>
+    </div>
+    <br>
+
+
+    {% endfor %}
+<br>
+    <p0> Создать новую папку: </p0>
+
+    <form enctype="multipart/form-data" method="post">
+   <p><input type="text" name="folder_name">
+   <input type="submit" value="Создать"></p>
+  </form>
+
+    <br>
+
+    <p0> Загрузить новый файл: </p0>
+
+ <form enctype="multipart/form-data" method="post">
+   <p><input type="file" name="file">
+   <input type="submit" value="Отправить"></p>
+  </form>
+
+ </body>
+
+
+{% endblock %}
